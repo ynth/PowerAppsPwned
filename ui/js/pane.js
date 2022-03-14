@@ -1326,7 +1326,7 @@ $(function () {
 				CrmPowerPane.UI.ShowNotification("Clearing Logical Names executed succesfully.");
 
 			});
-
+			//this is a test!!
 		}
 	};
 
@@ -1335,10 +1335,3 @@ $(function () {
 	CrmPowerPane.RegisterEvents();
 
 });
-
-
-
-
-
-
-
