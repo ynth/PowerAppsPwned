@@ -1,19 +1,19 @@
 {
   "manifest_version": 2,
-  "name": "Shmeki",
-  "short_name": "Dynamics 365 Power Pane",
+  "name": "PowerAppsPwned",
+  "short_name": "PowerAppsPwned",
   "version": "1.2.2",
-  "description": "Dynamics 365 Power Pane is a helper tool designed to integrate with Dynamics CRM/365 application and allow you to manipulate forms.",
+  "description": "PowerAppsPwned is a helper tool designed to integrate with Dynamics CRM/365 application and allow you to manipulate forms.",
   "content_security_policy": "script-src 'self'; object-src 'self'",
   "browser_action": {
-    "default_title": "Dynamics 365 Power Pane",
-    "default_icon": "img/icon-48.png"
+    "default_title": "PowerAppsPwned",
+    "default_icon": "img/adjust48.png"
   },
   "icons": {
-    "32": "img/icon-32.png",
-    "48": "img/icon-48.png",
-    "64": "img/icon-64.png",
-    "128": "img/icon-128.png"
+    "32": "img/adjust32.png",
+    "48": "img/adjust48.png",
+    "64": "img/adjust64.png",
+    "128": "img/adjust128.png"
   },
 
   "content_scripts": [

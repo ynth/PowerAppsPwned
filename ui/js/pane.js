@@ -1243,17 +1243,24 @@ $(function () {
 					window.top.document.querySelectorAll('.levelupschema').forEach((x) => x.remove());
 
 					let createSchemaNameInput = (controlName, controlNode, background = "green") => {
-						//const myDivObjBgColor = window.getComputedStyle(window.top.document.getElementById('topBar')).backgroundColor;
+
+
 						let schemaNameInput = window.top.document.createElement('input');
 						schemaNameInput.setAttribute('type', 'text');
 						schemaNameInput.setAttribute('class', 'levelupschema');
-						if (background == "green") {
-							schemaNameInput.setAttribute('style', `background: ${background}; color: black; font-size: 14px;`);
+
+						if (CrmPowerPane.TargetFrame.GetApplicationType() === CrmPowerPane.ApplicationType.Dynamics365) {
+							const myDivObjBgColor = window.getComputedStyle(window.top.document.getElementById('topBar')).backgroundColor;
+							schemaNameInput.setAttribute('style', `background: ${myDivObjBgColor}; color: white; font-size: 14px;`);
 						} else {
-							schemaNameInput.setAttribute('style', `background: ${background}; color: black; font-size: 14px; border-radius: 8px`);
+							if (background === "green") {
+								schemaNameInput.setAttribute('style', `background: ${background}; color: black; font-size: 14px;`);
+							} else {
+								schemaNameInput.setAttribute('style', `background: ${background}; color: black; font-size: 14px; border-radius: 8px`);
+							}
 						}
-						
-						// border-radius: 8px;
+
+
 						schemaNameInput.value = controlName;
 						console.log("createSchemaNameInput", controlName, controlNode)
 						if (controlNode && controlNode.parentNode) {
@@ -1288,11 +1295,11 @@ $(function () {
 
 
 							createSchemaNameInput(
-							
+
 								document.querySelector(`div[name="${tabName}"]`) ||
 								document.querySelector(`li[data-id$="tablist-${tabName}"]`)
 								, "yellow"
-								
+
 
 							);
 						}
@@ -1327,6 +1334,35 @@ $(function () {
 
 			});
 			//this is a test!!
+
+			$("#pap_godmode").click(function () {
+				const selectedTab = Xrm.Page.ui.tabs.get((x) => x.getDisplayState() === 'expanded')[0];
+
+				Xrm.Page.data.entity.attributes.forEach((a) => a.setRequiredLevel('none'));
+
+				Xrm.Page.ui.controls.forEach((c) => {
+					c.setVisible(true);
+					if (c.setDisabled) {
+						c.setDisabled(false);
+					}
+					if (c.clearNotification) {
+						c.clearNotification();
+					}
+				});
+
+				Xrm.Page.ui.tabs.forEach((t) => {
+					t.setVisible(true);
+					t.setDisplayState('expanded');
+					t.sections.forEach((s) => s.setVisible(true));
+				});
+
+				if (selectedTab.setFocus) {
+					selectedTab.setDisplayState('expanded');
+					selectedTab.setFocus();
+				}
+				CrmPowerPane.UI.ShowNotification("Entered God Mode.");
+
+			});
 		}
 	};
 
@@ -1335,3 +1371,30 @@ $(function () {
 	CrmPowerPane.RegisterEvents();
 
 });
+
+//godMode() {
+//	const selectedTab = this.utility.Xrm.Page.ui.tabs.get((x) => x.getDisplayState() === 'expanded')[0];
+
+//	this.utility.Xrm.Page.data.entity.attributes.forEach((a) => a.setRequiredLevel('none'));
+
+//	this.utility.Xrm.Page.ui.controls.forEach((c: Xrm.Page.StandardControl) => {
+//		c.setVisible(true);
+//		if (c.setDisabled) {
+//			c.setDisabled(false);
+//		}
+//		if (c.clearNotification) {
+//			c.clearNotification();
+//		}
+//	});
+
+//	this.utility.Xrm.Page.ui.tabs.forEach((t) => {
+//		t.setVisible(true);
+//		t.setDisplayState('expanded');
+//		t.sections.forEach((s) => s.setVisible(true));
+//	});
+
+//	if (selectedTab.setFocus) {
+//		selectedTab.setDisplayState('expanded');
+//		selectedTab.setFocus();
+//	}
+//}

@@ -63,7 +63,7 @@
         linkImageContainerElement.setAttribute("class", "navTabButtonImageContainer");
 
         var imageElement = document.createElement("img");
-        imageElement.setAttribute("src", browser.extension.getURL("img/icon29.png"));
+        imageElement.setAttribute("src", browser.extension.getURL("img/adjust48.png"));
 
         if (GetAppicationType() == ApplicationType.Dynamics365) {
             const myDivObjBgColor = window.getComputedStyle(window.top.document.getElementById('topBar')).backgroundColor;
