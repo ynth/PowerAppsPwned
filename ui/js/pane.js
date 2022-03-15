@@ -1371,47 +1371,49 @@ $(function () {
 
 			$("#pap_allfields").click(async function () {
 
-				
+
 				let entityId = Xrm.Page.data.entity.getId();
 
-				//alert("entityId= " + entityId);
 				if (entityId) {
 					let entityName = Xrm.Page.data.entity.getEntityName();
-					//alert("entityName= " + entityName);
+
 					let resultsArray = [{ cells: ['Attribute Name', 'Value'] }];
 					fetchme(`EntityDefinitions(LogicalName='${entityName}')`, 'EntitySetName').then((entity) => {
 
-						//alert("entity= " + entity);
+
 						if (entity && entity.EntitySetName) {
 							fetchme(entity.EntitySetName, null, null, entityId.substr(1, 36).toLowerCase()).then((r) => {
 								let keys = Object.keys(r);
 								keys.forEach((k) => {
 									resultsArray.push({ cells: [k, r[k]] });
 								});
-								//alert(resultsArray[0].cells[0]);
-								//alert(resultsArray[0].cells[1]);
 
-								resultsArray = resultsArray.sort(function (a, b) {
+								function sorteernekeer(a, b) {
 									if (a.cells[0] < b.cells[0]) { return -1; }
 									if (a.cells[0] > b.cells[0]) { return 1; }
 									return 0;
-								})
-								//console.log("rrrr", resultsArray[0].cells[0]);
-								messageExtensionMe(resultsArray, 'allFields');
+								}
+								const underscores = resultsArray.filter(x => x.cells[0].startsWith("_")).sort(sorteernekeer);
+								const apenstaartjes = resultsArray.filter(x => x.cells[0].startsWith("@")).sort(sorteernekeer);
+								const titel = resultsArray.filter(x => x.cells[0].startsWith("Attribute Name")).sort(sorteernekeer);
+								const attributen = resultsArray.filter(x => !x.cells[0].startsWith("Attribute Name") && !x.cells[0].startsWith("@") && !x.cells[0].startsWith("_")).sort(sorteernekeer);
+								const newresultsArray = [];
+								for (const x of titel) { newresultsArray.push(x); }
+								for (const x of attributen) { newresultsArray.push(x); }
+								for (const x of underscores) { newresultsArray.push(x); }
+								for (const x of apenstaartjes) { newresultsArray.push(x); }
+								messageExtensionMe(newresultsArray, 'allFields');
 
 								//let person = { firstName: "John", lastName: "Doe", age: 50, eyeColor: "blue" };
-
 								//const ding = [];
 								//for (var i = 0; i < resultsArray.length; i++) {
 								//	ding.push({ label: resultsArray[i].cells[0], value: resultsArray[i].cells[1] });
 								//	//ding.push({ label: resultsArray[i].cells[0] }, value: resultsArray[i].cells[1])
 								//}
-
 								//CrmPowerPane.UI.BuildOutputPopup(
 								//	"allFields",
 								//	"allFields information",
 								//	ding);
-
 							});
 						}
 					});
@@ -1571,6 +1573,21 @@ $(function () {
 
 			$("#pap_showoptionsetvalues").click(function () {
 
+				let optionSets = Xrm.Page.getControl()
+					.filter((x) => x.getControlType() === 'boolean' || x.getControlType() === 'optionset')
+					.map((x) => ({
+						name: x.getName(), options: (x.getAttribute()).getOptions()
+					}));
+
+
+				function sorteernekeer(a, b) {
+					if (a.name < b.name) { return -1; }
+					if (a.name > b.name) { return 1; }
+					return 0;
+				}
+				optionSets = optionSets.sort(sorteernekeer)
+				console.log("optionSets", optionSets)
+				messageExtensionMe(optionSets, 'optionsets');
 				CrmPowerPane.UI.ShowNotification("todo");
 
 			});
@@ -1721,7 +1738,7 @@ $(function () {
 				}
 			});
 
-			//go-to-record 
+
 
 		}
 	};
@@ -1823,4 +1840,3 @@ function messageExtensionMe(message, category) {
 
 
 //#endregion Helpers
-
