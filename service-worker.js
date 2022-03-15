@@ -20,6 +20,27 @@ chrome.runtime.onMessage.addListener(function () {
 	//alert(chrome.extension.getURL('pages/grid.html'))
 });
 
+chrome.runtime.onMessage.addListener(
+	function (request, sender, sendResponse) {
+		alert("funcie")
+		console.log(sender.tab ?
+			"from a content script:" + sender.tab.url :
+			"from the extension");
+		if (request.greeting === "hello")
+			sendResponse({ farewell: "goodbye" });
+	}
+);
+
+chrome.runtime.onConnect.addListener(port => {
+	console.log('connected ', port);
+
+	if (port.name === 'hi') {
+		port.onMessage.addListener(this.processMessage);
+	}
+});
+
+
+
 //function getCurrentTabCCCb() {
 //	alert("getCurrentTabCCCb")
 //	//let queryOptions = { active: true, currentWindow: true };

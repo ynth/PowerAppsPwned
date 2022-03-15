@@ -1372,21 +1372,28 @@ $(function () {
 			});
 
 			$("#pap_blurfields").click(function () {
-				alert("pap_blurfields")
+
 				setFilter(Xrm.Page.getAttribute(), document, 'blur(5px)');
 			});
 
 			$("#pap_resetblur").click(function () {
-				alert("pap_resetblur")
+
 				setFilter(Xrm.Page.getAttribute(), document, '');
 			});
 
 			$("#pap_allfields").click(async function () {
+				CrmPowerPane.UI.ShowNotification("todo");
 
-				getCurrentTabCCCb();
+				//port = chrome.runtime.connect("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", { name: 'hi' });
+				//port.onDisconnect.addListener(obj => {
+				//	console.log('disconnected port');
+				//})
+				//chrome.runtime.sendMessage("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",{ greeting: "hello" }, function (response) {
+				//	console.log(response);
+				//});
 				//return tab;
 
-					//console.log("tabi", await chrome.tabs)
+				//console.log("tabi", await chrome.tabs)
 				//alert("pap_allfields")
 				//let entityId = Xrm.Page.data.entity.getId();
 
@@ -1426,6 +1433,309 @@ $(function () {
 				//}
 			});
 
+			$("#pap_changedfields").click(function () {
+				try {
+					Xrm.Page.ui.controls.forEach(function (control) {
+						var attr = (control && control.getAttribute) ? control.getAttribute() : undefined;
+						if (attr && attr.getIsDirty && attr.getIsDirty()) {
+							var name = control.getName();
+							_getAttributeContainer(name).css('background', '#FFFF00');
+						}
+					});
+					CrmPowerPane.UI.ShowNotification("Dirty fields were highlighted.");
+				} catch (e) {
+					CrmPowerPane.Errors.WrongPageWarning();
+				}
+			});
+
+			$("#pap_recordurl").click(function () {
+				try {
+					var header = "Record url";
+					var description = "Url of current record.";
+
+					var url = [Xrm.Page.context.getClientUrl() + "/main.aspx?"];
+					url.push("etn=" + Xrm.Page.data.entity.getEntityName());
+					url.push("&id=" + Xrm.Page.data.entity.getId());
+					url.push("&pagetype=entityrecord");
+
+					var result = [{
+						label: "Record Url",
+						value: url.join("")
+					}];
+
+					if (Xrm.Utility && Xrm.Utility.getGlobalContext && Xrm.Utility.getGlobalContext().getCurrentAppProperties) {
+						Xrm.Utility.getGlobalContext().getCurrentAppProperties().then(function (appDetails) {
+							url.splice(1, 0, "appid=" + appDetails.appId + "&");
+							result.push({
+								label: "Record Url for Current Application",
+								value: url.join("")
+							});
+							CrmPowerPane.UI.BuildOutputPopup(header, description, result);
+						});
+					} else {
+						CrmPowerPane.UI.BuildOutputPopup(header, description, result);
+					}
+				} catch (e) {
+					CrmPowerPane.Errors.WrongPageWarning();
+				}
+
+			});
+
+			$("#pap_recordid").click(function () {
+				try {
+					let entityId = Xrm.Page.data.entity.getId().toLowerCase();
+					if (entityId) {
+						try {
+
+							let t = document.createElement('input');
+							t.setAttribute('id', 'copy');
+							t.setAttribute('value', entityId.substr(1, 36));
+							document.body.appendChild(t);
+							t.select();
+							document.execCommand('copy');
+							t.remove();
+							CrmPowerPane.UI.ShowNotification("Record Id has been copied to clipboard");
+
+						} catch (e) {
+							prompt('Ctrl+C to copy. OK to close.', entityId);
+						}
+					} else {
+						alert('This record has not been saved. Please save and run this command again');
+					}
+				} catch (e) {
+					CrmPowerPane.Errors.WrongPageWarning();
+				}
+
+			});
+
+			$("#pap_openwebapi").click(function () {
+				try {
+					var apiVersion = Xrm.Utility.getGlobalContext().getVersion();
+					var shortVersion = apiVersion.substring(3, apiVersion.indexOf(".") - 1);
+
+					Xrm.Utility.getEntityMetadata(Xrm.Page.data.entity.getEntityName(), "")
+						.then(function (result) {
+							var url = Xrm.Page.context.getClientUrl() + "/api/data/v" + shortVersion + "/" + result.EntitySetName + "(" + Xrm.Page.data.entity.getId() + ")";
+							url = url.replace("{", "").replace("}", "");
+							window.open(url, '_blank');
+						});
+
+				} catch (e) {
+					CrmPowerPane.UI.ShowNotification("An error occured opening the Web API URL for this record.");
+				}
+			});
+
+			$("#pap_refreshallsubgrids").click(function () {
+				try {
+					Xrm.Page.ui.controls.forEach(function (c) {
+						if (c.getControlType() === 'subgrid') {
+
+							c.refresh();
+						}
+					});
+
+					CrmPowerPane.UI.ShowNotification("Refreshing all subgrids");
+
+
+				} catch (e) {
+					CrmPowerPane.UI.ShowNotification("An error occured opening the Web API URL for this record.");
+				}
+			});
+
+			$("#pap_minimumvalues").click(function () {
+				try {
+					if (Xrm.Page.ui.getFormType() !== 1) {
+
+						CrmPowerPane.UI.ShowNotification("This action can only be run on create form.");
+						return;
+					}
+					Xrm.Page.data.entity.attributes.forEach((a) => {
+						if (a.getRequiredLevel() === 'required' && !a.getValue()) {
+							switch (a.getAttributeType()) {
+								case 'memo':
+									a.setValue('memo');
+									break;
+								case 'string':
+									a.setValue('string');
+									break;
+								case 'boolean':
+									a.setValue(false);
+									break;
+								case 'datetime':
+									a.setValue(new Date());
+									break;
+								case 'decimal':
+								case 'double':
+								case 'integer':
+								case 'money':
+									a.setValue((a).getMin());
+									break;
+								case 'optionset':
+
+									a.setValue((a).getOptions()[0].value);
+									break;
+							}
+						}
+					});
+
+
+				} catch (e) {
+					CrmPowerPane.UI.ShowNotification("An error occured opening the Web API URL for this record.");
+				}
+			});
+			$("#pap_showoptionsetvalues").click(function () {
+
+				CrmPowerPane.UI.ShowNotification("todo");
+
+			});
+
+			$("#pap_clonerecord").click(function () {
+				let clientUrl =
+					(Xrm.Page.context.getCurrentAppUrl && Xrm.Page.context.getCurrentAppUrl()) ||
+					Xrm.Page.context.getClientUrl();
+
+				let clientUrlForParams = clientUrl;
+
+				if (!clientUrl.includes('main.aspx')) {
+					clientUrlForParams += '/main.aspx';
+				}
+
+				let extraq = '';
+				let entityName = Xrm.Page.data.entity.getEntityName();
+				let fieldCount = 0;
+				let isFieldCountLimitExceeded = false;
+
+				Xrm.Page.data.entity.attributes.forEach((c) => {
+					if (fieldCount > 45) {
+						isFieldCountLimitExceeded = true;
+						return;
+					}
+					let attributeType = c.getAttributeType();
+					let attributeName = c.getName();
+					let attributeValue = c.getValue();
+
+					if (
+						!attributeValue ||
+						attributeName === 'createdon' ||
+						attributeName === 'modifiedon' ||
+						attributeName === 'createdby' ||
+						attributeName === 'modifiedby' ||
+						attributeName === 'processid' ||
+						attributeName === 'stageid' ||
+						attributeName === 'ownerid' ||
+						attributeName.startsWith('transactioncurrency')
+					)
+						return;
+
+					if (
+						attributeType === 'lookup' &&
+						!(c).getIsPartyList() &&
+						attributeValue.length > 0
+					) {
+						let lookupValue = c;
+						extraq += attributeName + 'name=' + attributeValue[0].name + '&';
+						fieldCount++;
+						if (
+							attributeName === 'customerid' ||
+							attributeName === 'parentcustomerid' ||
+							(typeof lookupValue.getLookupTypes === 'function' &&
+								Array.isArray(lookupValue.getLookupTypes()) &&
+								lookupValue.getLookupTypes().length > 1)
+						) {
+							extraq += attributeName + 'type=' + attributeValue[0].entityType + '&';
+							fieldCount++;
+						}
+						attributeValue = attributeValue[0].id;
+					}
+
+					if (attributeType === 'datetime') {
+						attributeValue = (attributeValue).toDateString();
+					}
+					extraq += attributeName + '=' + attributeValue + '&';
+					fieldCount++;
+				});
+
+
+
+
+				console.log(clientUrlForParams)
+				console.log(entityName)
+				console.log(clientUrlForParams +
+					'&pagetype=entityrecord' +
+					'&etn=' +
+					entityName +
+
+					'&extraqs=?' +
+					encodeURIComponent(extraq))
+
+				if (isFieldCountLimitExceeded) {
+					alert('This form contains more than 45 fields and cannot be cloned');
+				} else {
+					let newWindowUrl =
+						clientUrlForParams +
+						'&pagetype=entityrecord' +
+						'&etn=' +
+						entityName +
+
+						'&extraqs=?' +
+						encodeURIComponent(extraq);
+					window.open(newWindowUrl);
+				}
+
+			});
+
+			$("#pap_refresh_autosaveoff").click(function () {
+				Xrm.Page.data.refresh(false).then(
+					() => {
+						Xrm.Page.data.entity.addOnSave((econtext) => {
+							let eventArgs = econtext.getEventArgs();
+							if (eventArgs.getSaveMode() === 70 || eventArgs.getSaveMode() === 2) {
+								eventArgs.preventDefault();
+							}
+						});
+						CrmPowerPane.UI.ShowNotification("Form refreshed without save. Autosave turned off.");
+					
+					},
+					(error) => {
+						alert(error.message);
+					}
+				);
+
+			});
+
+			$("#pap_openrecordbyid").click(function () {
+				try {
+					CrmPowerPane.UI.BuildInputPopup(
+						"Go to record",
+						"Redirects you to specific record by id.",
+						[
+							{
+								label: "Entity Schema Name",
+								name: "entityname"
+							},
+							{
+								label: "Record Id",
+								name: "recordid"
+							}
+						],
+						function (popupObj) {
+							var params = popupObj.Parameters;
+							if (params.entityname.value && params.recordid.value) {
+								var linkProps = [Xrm.Page.context.getClientUrl() + "/main.aspx"];
+								linkProps.push("?etn=" + params.entityname.value.toLowerCase());
+								linkProps.push("&id=" + params.recordid.value);
+								linkProps.push("&pagetype=entityrecord");
+								window.open(linkProps.join(""), '_blank');
+							} else {
+								CrmPowerPane.UI.ShowNotification("Entity name and record guid are required. Please fill them and try again.", "warning");
+							}
+						});
+				} catch (e) {
+					CrmPowerPane.UI.ShowNotification("An error ocurred while redirecting to specified record.", "error");
+				}
+			});
+
+			//go-to-record 
 
 		}
 	};

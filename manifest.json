@@ -39,7 +39,8 @@
 		"activeTab",
 		"storage",
 		"webNavigation",
-		"background"
+		"background",
+		"scripting"
 	],
 	"host_permissions": [
 		"http://*/*",
@@ -55,5 +56,12 @@
 	"background": {
 		"service_worker": "service-worker.js"
 	},
-	"options_page": "ui/options.html"
+	"options_page": "ui/options.html",
+	"externally_connectable": {
+		"ids": [
+			"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+			"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+			"cccccccccccccccccccccccccccccccc"
+		]
+	}
 }
