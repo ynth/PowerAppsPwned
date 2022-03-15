@@ -328,12 +328,6 @@ $(function () {
 					: null;
 			}
 
-			$(document).on("click", ".pap_allfields", function (e) {
-				//$(".crm-power-pane-sections").slideToggle(CrmPowerPane.Constants.SlideTime);
-				//e.stopPropagation();
-				alert("elaba")
-			});
-
 			var _getSelectElement = function (attributeLogicalName) {
 				var $select = Content.$('select.ms-crm-SelectBox[attrname=' + attributeLogicalName + ']');
 
@@ -1243,15 +1237,10 @@ $(function () {
 					let contentPanels = Array.from(document.querySelectorAll('iframe')).filter(function (d) {
 						return d.style.visibility !== 'hidden';
 					});
-					console.log("contentWindow", contentPanels[0].contentWindow.document.getElementById("blox_steekkaartnummer"));
-
-
-
 
 					window.top.document.querySelectorAll('.levelupschema').forEach((x) => x.remove());
 
 					let createSchemaNameInput = (controlName, controlNode, background = "green") => {
-
 
 						let schemaNameInput = window.top.document.createElement('input');
 						schemaNameInput.setAttribute('type', 'text');
@@ -1268,9 +1257,8 @@ $(function () {
 							}
 						}
 
-
 						schemaNameInput.value = controlName;
-						console.log("createSchemaNameInput", controlName, controlNode)
+
 						if (controlNode && controlNode.parentNode) {
 							controlNode.parentNode.insertBefore(schemaNameInput, controlNode);
 						}
@@ -1382,55 +1370,52 @@ $(function () {
 			});
 
 			$("#pap_allfields").click(async function () {
-				CrmPowerPane.UI.ShowNotification("todo");
 
-				//port = chrome.runtime.connect("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", { name: 'hi' });
-				//port.onDisconnect.addListener(obj => {
-				//	console.log('disconnected port');
-				//})
-				//chrome.runtime.sendMessage("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",{ greeting: "hello" }, function (response) {
-				//	console.log(response);
-				//});
-				//return tab;
-
-				//console.log("tabi", await chrome.tabs)
-				//alert("pap_allfields")
-				//let entityId = Xrm.Page.data.entity.getId();
+				
+				let entityId = Xrm.Page.data.entity.getId();
 
 				//alert("entityId= " + entityId);
-				//if (entityId) {
-				//	let entityName = Xrm.Page.data.entity.getEntityName();
-				//	alert("entityName= " + entityName);
-				//	let resultsArray = [{ cells: ['Attribute Name', 'Value'] }];
-				//	fetchme(`EntityDefinitions(LogicalName='${entityName}')`, 'EntitySetName').then((entity) => {
+				if (entityId) {
+					let entityName = Xrm.Page.data.entity.getEntityName();
+					//alert("entityName= " + entityName);
+					let resultsArray = [{ cells: ['Attribute Name', 'Value'] }];
+					fetchme(`EntityDefinitions(LogicalName='${entityName}')`, 'EntitySetName').then((entity) => {
 
-				//		alert("entity= " + entity);
-				//		if (entity && entity.EntitySetName) {
-				//			fetchme(entity.EntitySetName, null, null, entityId.substr(1, 36).toLowerCase()).then((r) => {
-				//				let keys = Object.keys(r);
-				//				keys.forEach((k) => {
-				//					resultsArray.push({ cells: [k, r[k]] });
-				//				});
-				//				console.log(r);
-				//				messageExtensionMe(resultsArray, 'allFields');
+						//alert("entity= " + entity);
+						if (entity && entity.EntitySetName) {
+							fetchme(entity.EntitySetName, null, null, entityId.substr(1, 36).toLowerCase()).then((r) => {
+								let keys = Object.keys(r);
+								keys.forEach((k) => {
+									resultsArray.push({ cells: [k, r[k]] });
+								});
+								//alert(resultsArray[0].cells[0]);
+								//alert(resultsArray[0].cells[1]);
 
-				//				let person = { firstName: "John", lastName: "Doe", age: 50, eyeColor: "blue" };
+								resultsArray = resultsArray.sort(function (a, b) {
+									if (a.cells[0] < b.cells[0]) { return -1; }
+									if (a.cells[0] > b.cells[0]) { return 1; }
+									return 0;
+								})
+								//console.log("rrrr", resultsArray[0].cells[0]);
+								messageExtensionMe(resultsArray, 'allFields');
 
-				//				const ding = [];
-				//				for (var i = 0; i < resultsArray.length; i++) {
-				//					ding.push({ label: resultsArray[i].cells[0], value: resultsArray[i].cells[1] });
-				//					//ding.push({ label: resultsArray[i].cells[0] }, value: resultsArray[i].cells[1])
-				//				}
+								//let person = { firstName: "John", lastName: "Doe", age: 50, eyeColor: "blue" };
 
-				//				CrmPowerPane.UI.BuildOutputPopup(
-				//					"allFields",
-				//					"allFields information",
-				//					ding);
+								//const ding = [];
+								//for (var i = 0; i < resultsArray.length; i++) {
+								//	ding.push({ label: resultsArray[i].cells[0], value: resultsArray[i].cells[1] });
+								//	//ding.push({ label: resultsArray[i].cells[0] }, value: resultsArray[i].cells[1])
+								//}
 
-				//			});
-				//		}
-				//	});
-				//}
+								//CrmPowerPane.UI.BuildOutputPopup(
+								//	"allFields",
+								//	"allFields information",
+								//	ding);
+
+							});
+						}
+					});
+				}
 			});
 
 			$("#pap_changedfields").click(function () {
@@ -1583,6 +1568,7 @@ $(function () {
 					CrmPowerPane.UI.ShowNotification("An error occured opening the Web API URL for this record.");
 				}
 			});
+
 			$("#pap_showoptionsetvalues").click(function () {
 
 				CrmPowerPane.UI.ShowNotification("todo");
@@ -1694,7 +1680,7 @@ $(function () {
 							}
 						});
 						CrmPowerPane.UI.ShowNotification("Form refreshed without save. Autosave turned off.");
-					
+
 					},
 					(error) => {
 						alert(error.message);
@@ -1823,14 +1809,14 @@ function messageExtensionMe(message, category) {
 	let levelUpEvent = new CustomEvent('levelup', {
 		detail: extensionMessage,
 	});
-	alert("messageExtensionMe1")
+	//alert("messageExtensionMe1")
 	levelUpEvent.initEvent('levelup', false, false);
 	window.top.document.dispatchEvent(levelUpEvent);
 	//alert("../pages/grid.html")
 	//chrome.tabs.create({
 	//	url: `/pages/grid.html`,
 	//});
-	alert("messageExtensionMe2")
+	//alert("messageExtensionMe2")
 }
 
 
