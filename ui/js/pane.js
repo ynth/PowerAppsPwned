@@ -328,6 +328,12 @@ $(function () {
 					: null;
 			}
 
+			$(document).on("click", ".pap_allfields", function (e) {
+				//$(".crm-power-pane-sections").slideToggle(CrmPowerPane.Constants.SlideTime);
+				//e.stopPropagation();
+				alert("elaba")
+			});
+
 			var _getSelectElement = function (attributeLogicalName) {
 				var $select = Content.$('select.ms-crm-SelectBox[attrname=' + attributeLogicalName + ']');
 
@@ -362,6 +368,8 @@ $(function () {
 			$(".crm-power-pane-sections").click(function (e) {
 				e.stopPropagation();
 			});
+
+			//#region Functions
 
 			$("#entity-name").click(function () {
 				try {
@@ -1227,9 +1235,9 @@ $(function () {
 				}
 			});
 
+			//#endregion Functions
 
-			////////////////
-			$("#shmeki_logicalnames").click(function () {
+			$("#pap_logicalnames").click(function () {
 				try {
 
 					let contentPanels = Array.from(document.querySelectorAll('iframe')).filter(function (d) {
@@ -1323,7 +1331,7 @@ $(function () {
 				}
 			});
 
-			$("#shmeki_clearlogicalnames").click(function () {
+			$("#pap_clearlogicalnames").click(function () {
 				document.querySelectorAll('.levelupschema').forEach((x) => x.remove());
 
 				let contentPanels = Array.from(document.querySelectorAll('iframe')).filter(function (d) {
@@ -1333,7 +1341,6 @@ $(function () {
 				CrmPowerPane.UI.ShowNotification("Clearing Logical Names executed succesfully.");
 
 			});
-			//this is a test!!
 
 			$("#pap_godmode").click(function () {
 				const selectedTab = Xrm.Page.ui.tabs.get((x) => x.getDisplayState() === 'expanded')[0];
@@ -1363,6 +1370,63 @@ $(function () {
 				CrmPowerPane.UI.ShowNotification("Entered God Mode.");
 
 			});
+
+			$("#pap_blurfields").click(function () {
+				alert("pap_blurfields")
+				setFilter(Xrm.Page.getAttribute(), document, 'blur(5px)');
+			});
+
+			$("#pap_resetblur").click(function () {
+				alert("pap_resetblur")
+				setFilter(Xrm.Page.getAttribute(), document, '');
+			});
+
+			$("#pap_allfields").click(async function () {
+
+				getCurrentTabCCCb();
+				//return tab;
+
+					//console.log("tabi", await chrome.tabs)
+				//alert("pap_allfields")
+				//let entityId = Xrm.Page.data.entity.getId();
+
+				//alert("entityId= " + entityId);
+				//if (entityId) {
+				//	let entityName = Xrm.Page.data.entity.getEntityName();
+				//	alert("entityName= " + entityName);
+				//	let resultsArray = [{ cells: ['Attribute Name', 'Value'] }];
+				//	fetchme(`EntityDefinitions(LogicalName='${entityName}')`, 'EntitySetName').then((entity) => {
+
+				//		alert("entity= " + entity);
+				//		if (entity && entity.EntitySetName) {
+				//			fetchme(entity.EntitySetName, null, null, entityId.substr(1, 36).toLowerCase()).then((r) => {
+				//				let keys = Object.keys(r);
+				//				keys.forEach((k) => {
+				//					resultsArray.push({ cells: [k, r[k]] });
+				//				});
+				//				console.log(r);
+				//				messageExtensionMe(resultsArray, 'allFields');
+
+				//				let person = { firstName: "John", lastName: "Doe", age: 50, eyeColor: "blue" };
+
+				//				const ding = [];
+				//				for (var i = 0; i < resultsArray.length; i++) {
+				//					ding.push({ label: resultsArray[i].cells[0], value: resultsArray[i].cells[1] });
+				//					//ding.push({ label: resultsArray[i].cells[0] }, value: resultsArray[i].cells[1])
+				//				}
+
+				//				CrmPowerPane.UI.BuildOutputPopup(
+				//					"allFields",
+				//					"allFields information",
+				//					ding);
+
+				//			});
+				//		}
+				//	});
+				//}
+			});
+
+
 		}
 	};
 
@@ -1371,30 +1435,96 @@ $(function () {
 	CrmPowerPane.RegisterEvents();
 
 });
+//#region Helpers
+function setFilter(attributes, formDocument, filter) {
+	attributes.forEach((x) => {
+		let e = (
+			document.querySelector(`div[data-id="${x.getName()}-FieldSectionItemContainer"] div[data-lp-id]`)
+		);
+		if (e) {
+			e.style.filter = filter;
+		}
+	});
+	formDocument.querySelector(`h1[data-id='header_title']`).style.filter = filter;
+	formDocument
+		.querySelectorAll(
+			'.wj-row[aria-label="Data"], #headerControlsList > div[role="presentation"] > div:first-child, div[data-lp-id$="MscrmControls.FieldControls.TextBoxControl"], div[data-lp-id^="MscrmControls.Containers.QuickForm"] div[data-lp-id^="MscrmControls.FieldControls.TextBoxControl"]'
+		)
+		.forEach((e) => (e.style.filter = filter));
+}
 
-//godMode() {
-//	const selectedTab = this.utility.Xrm.Page.ui.tabs.get((x) => x.getDisplayState() === 'expanded')[0];
+function fetchme(entityName, attributes, filter, id, fetchXML) {
+	let headers = new Headers({
+		Accept: 'application/json',
+		'Content-Type': 'application/json; charset=utf-8',
+	});
+	let serviceUrl = `${Xrm.Page.context.getClientUrl()}/XRMServices/2011/OrganizationData.svc/${entityName}`;
+	if (true) {
+		headers = new Headers({
+			Accept: 'application/json',
+			'Content-Type': 'application/json; charset=utf-8',
+			'OData-MaxVersion': '4.0',
+			'OData-Version': '4.0',
+			Prefer: 'odata.include-annotations="*"',
+		});
+		serviceUrl = `${Xrm.Page.context.getClientUrl()}/api/data/v${Xrm.Page.context
+			.getVersion()
+			.substr(0, 3)}/${entityName}`;
+	}
+	if (id) {
+		serviceUrl += `(${id})`;
+	}
+	if (attributes) {
+		serviceUrl += `?$select=${attributes}`;
+	}
+	if (filter) {
+		serviceUrl += `&$filter=${filter}`;
+	}
+	if (fetchXML) {
+		serviceUrl += `?fetchXml=${encodeURI(fetchXML)}`;
+	}
+	return fetch(serviceUrl, {
+		method: 'GET',
+		headers: headers,
+		credentials: 'include',
+	})
+		.then((response) => response.json())
+		.then((c) => {
+			if (c.d) {
+				return c.d.results;
+			} else if (c.value) {
+				return c.value;
+			}
+			return c;
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
 
-//	this.utility.Xrm.Page.data.entity.attributes.forEach((a) => a.setRequiredLevel('none'));
+function messageExtensionMe(message, category) {
+	let extensionMessage = {
+		type: 'Page',
+		category: category,
+		content: message,
+	};
+	console.log("extensionMessage.content", extensionMessage.content)
 
-//	this.utility.Xrm.Page.ui.controls.forEach((c: Xrm.Page.StandardControl) => {
-//		c.setVisible(true);
-//		if (c.setDisabled) {
-//			c.setDisabled(false);
-//		}
-//		if (c.clearNotification) {
-//			c.clearNotification();
-//		}
-//	});
+	let levelUpEvent = new CustomEvent('levelup', {
+		detail: extensionMessage,
+	});
+	alert("messageExtensionMe1")
+	levelUpEvent.initEvent('levelup', false, false);
+	window.top.document.dispatchEvent(levelUpEvent);
+	//alert("../pages/grid.html")
+	//chrome.tabs.create({
+	//	url: `/pages/grid.html`,
+	//});
+	alert("messageExtensionMe2")
+}
 
-//	this.utility.Xrm.Page.ui.tabs.forEach((t) => {
-//		t.setVisible(true);
-//		t.setDisplayState('expanded');
-//		t.sections.forEach((s) => s.setVisible(true));
-//	});
 
-//	if (selectedTab.setFocus) {
-//		selectedTab.setDisplayState('expanded');
-//		selectedTab.setFocus();
-//	}
-//}
+
+
+//#endregion Helpers
+
