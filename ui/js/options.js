@@ -33,7 +33,7 @@ function loadOptions() {
 // Generates options page based on pane.html content
 function generateOptionsPage() {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", browser.extension.getURL("ui/pane.html"), true);
+    xmlHttp.open("GET", browser.runtime.getURL("ui/pane.html"), true);
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             parser = new DOMParser();

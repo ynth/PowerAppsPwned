@@ -1,47 +1,47 @@
-//if (typeof browser === "undefined") {
-//	browser = chrome;
+if (typeof browser === "undefined") {
+	browser = chrome;
+}
+
+chrome.runtime.onMessage.addListener(function () {
+
+	var togglePowerPaneCode = ''
+		+ 'var pane = document.querySelector(".crm-power-pane-sections");'
+		+ 'var nextValue = (pane.style.display !== "" && pane.style.display !== "none") ? "none" : "block";'
+		+ 'pane.style.display = nextValue;'
+
+	browser.tabs.executeScript({
+		code: togglePowerPaneCode
+	});
+	chrome.tabs.create({ 'url': chrome.extension.getURL('pages/grid.html') });
+
+	//chrome.tabs.create({
+	//	url: `pages/grid.html`,
+	//});
+	//alert(chrome.extension.getURL('pages/grid.html'))
+});
+
+//function getCurrentTabCCCb() {
+//	alert("getCurrentTabCCCb")
+//	//let queryOptions = { active: true, currentWindow: true };
+//	//let [tab] = await chrome.tabs.query(queryOptions);
+//	//return tab;
 //}
 
-//chrome.runtime.onMessage.addListener(function () {
+//console.log("chrome", chrome);
+////chrome.runtime.onMessage
+//console.log("chrome.runtime", chrome.runtime);
+//console.log("chrome.runtime.onMessage", chrome.runtime.onMessage);
 
-//	var togglePowerPaneCode = ''
-//		+ 'var pane = document.querySelector(".crm-power-pane-sections");'
-//		+ 'var nextValue = (pane.style.display !== "" && pane.style.display !== "none") ? "none" : "block";'
-//		+ 'pane.style.display = nextValue;'
+//browser.browserAction.onClicked.addListener(function () {
 
-//	browser.tabs.executeScript({
-//		code: togglePowerPaneCode
-//	});
-//	chrome.tabs.create({ 'url': chrome.extension.getURL('pages/grid.html') });
-
-//	//chrome.tabs.create({
-//	//	url: `pages/grid.html`,
-//	//});
-//	//alert(chrome.extension.getURL('pages/grid.html'))
+//	alert("hihi")
 //});
-
-////function getCurrentTabCCCb() {
-////	alert("getCurrentTabCCCb")
-////	//let queryOptions = { active: true, currentWindow: true };
-////	//let [tab] = await chrome.tabs.query(queryOptions);
-////	//return tab;
-////}
-
-////console.log("chrome", chrome);
-//////chrome.runtime.onMessage
-////console.log("chrome.runtime", chrome.runtime);
-////console.log("chrome.runtime.onMessage", chrome.runtime.onMessage);
-
-////browser.browserAction.onClicked.addListener(function () {
-
-////	alert("hihi")
-////});
-////chrome.browserAction.onClicked.addListener(function (tab) {
+//chrome.browserAction.onClicked.addListener(function (tab) {
 
 	
-////	//var action_url = "http://www.reddit.com/submit?url=" + encodeURIComponent(tab.href) + '&title=' + encodeURIComponent(tab.title);
-////	//chrome.tabs.create({ url: action_url });
-////});
+//	//var action_url = "http://www.reddit.com/submit?url=" + encodeURIComponent(tab.href) + '&title=' + encodeURIComponent(tab.title);
+//	//chrome.tabs.create({ url: action_url });
+//});
 
 
 //browser.browserAction.onClicked.addListener(function (message, sender, sendResponse) {

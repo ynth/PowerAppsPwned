@@ -14,38 +14,38 @@
 //	});
 //	chrome.tabs.create({ 'url': chrome.extension.getURL('pages/grid.html') });
 
-//	//chrome.tabs.create({
-//	//	url: `pages/grid.html`,
-//	//});
-//	//alert(chrome.extension.getURL('pages/grid.html'))
+//	chrome.tabs.create({
+//		url: `pages/grid.html`,
+//	});
+//	alert(chrome.extension.getURL('pages/grid.html'))
 //});
 
-////function getCurrentTabCCCb() {
-////	alert("getCurrentTabCCCb")
-////	//let queryOptions = { active: true, currentWindow: true };
-////	//let [tab] = await chrome.tabs.query(queryOptions);
-////	//return tab;
-////}
+//function getCurrentTabCCCb() {
+//	alert("getCurrentTabCCCb")
+//	//let queryOptions = { active: true, currentWindow: true };
+//	//let [tab] = await chrome.tabs.query(queryOptions);
+//	//return tab;
+//}
 
-////console.log("chrome", chrome);
-//////chrome.runtime.onMessage
-////console.log("chrome.runtime", chrome.runtime);
-////console.log("chrome.runtime.onMessage", chrome.runtime.onMessage);
+//console.log("chrome", chrome);
+////chrome.runtime.onMessage
+//console.log("chrome.runtime", chrome.runtime);
+//console.log("chrome.runtime.onMessage", chrome.runtime.onMessage);
 
-////browser.browserAction.onClicked.addListener(function () {
+//browser.browserAction.onClicked.addListener(function () {
 
-////	alert("hihi")
-////});
-////chrome.browserAction.onClicked.addListener(function (tab) {
+//	alert("hihi")
+//});
+//chrome.browserAction.onClicked.addListener(function (tab) {
 
 	
-////	//var action_url = "http://www.reddit.com/submit?url=" + encodeURIComponent(tab.href) + '&title=' + encodeURIComponent(tab.title);
-////	//chrome.tabs.create({ url: action_url });
-////});
+//	//var action_url = "http://www.reddit.com/submit?url=" + encodeURIComponent(tab.href) + '&title=' + encodeURIComponent(tab.title);
+//	//chrome.tabs.create({ url: action_url });
+//});
 
 
 //browser.browserAction.onClicked.addListener(function (message, sender, sendResponse) {
-//	//88alert("xxx")
+//	88alert("xxx")
 //	if (message.type === 'Page') {
 //		alert("Page")
 //		let c = message.category.toString();

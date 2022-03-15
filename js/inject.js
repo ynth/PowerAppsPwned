@@ -63,7 +63,7 @@
         linkImageContainerElement.setAttribute("class", "navTabButtonImageContainer");
 
         var imageElement = document.createElement("img");
-        imageElement.setAttribute("src", browser.extension.getURL("img/adjust48.png"));
+        imageElement.setAttribute("src", browser.runtime.getURL("img/adjust48.png"));
 
         if (GetAppicationType() == ApplicationType.Dynamics365) {
             const myDivObjBgColor = window.getComputedStyle(window.top.document.getElementById('topBar')).backgroundColor;
@@ -153,7 +153,7 @@
                     return;
                 }
 
-                var powerPaneTemplate = browser.extension.getURL("ui/pane.html");
+                var powerPaneTemplate = browser.runtime.getURL("ui/pane.html");
 
                 xmlHttp = new XMLHttpRequest();
                 xmlHttp.open("GET", powerPaneTemplate, true);
@@ -165,8 +165,8 @@
                             content.innerHTML = xmlHttp.responseText
                             content.className = "crm-power-pane-container";
 
-                            var style = BuildSytleTag(browser.extension.getURL("ui/css/pane.css"));
-                            var script = BuildScriptTag(browser.extension.getURL("ui/js/pane.js"));
+                            var style = BuildSytleTag(browser.runtime.getURL("ui/css/pane.css"));
+                            var script = BuildScriptTag(browser.runtime.getURL("ui/js/pane.js"));
                             
                             InjectSource([style, script, content]);
                         }
