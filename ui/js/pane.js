@@ -1738,6 +1738,24 @@ $(function () {
 				}
 			});
 
+			$("#pap_test").click(function () {
+				console.clear();
+				alert("joo")
+				alert(window)
+			
+				console.log("tst",contentPanels[0].contentWindow.document.getElementById('topBar').backgroundColor)
+				window.top.document.getElementById('topBar').backgroundColor = green;
+				console.log("tstwindow", window.top.document.getElementById('topBar'))
+
+			});
+
+			$("#pap_openSystemJobs").click(function () {
+				
+				openList('asyncoperation');
+
+			});
+
+			
 
 
 		}
@@ -1836,7 +1854,16 @@ function messageExtensionMe(message, category) {
 	//alert("messageExtensionMe2")
 }
 
-
+function openList(entityName) {
+	if (!entityName) {
+		entityName = prompt('Entity?', '');
+	}
+	if (entityName) {
+		let clientUrlForParams = Xrm.Page.context.getClientUrl();
+		clientUrlForParams += (Xrm.Page.context.getClientUrl().indexOf('appid') > -1 ? '&' : '/main.aspx?');
+		window.open(`${clientUrlForParams}etn=${entityName}&pagetype=entitylist`);
+	}
+}
 
 
 //#endregion Helpers

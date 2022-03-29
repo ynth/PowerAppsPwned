@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\js",
+    "\\js\\pages",
     "\\ui",
+    "\\ui\\css",
     "\\ui\\js"
   ],
   "SelectedNode": "\\ui\\js\\pane.js",
