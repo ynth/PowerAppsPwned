@@ -1755,6 +1755,12 @@ $(function () {
 
 			});
 
+			$("#pap_plugintracelog").click(function () {
+
+				openList('plugintracelog');
+
+			});
+
 			$("#pap_nextrelease").click(function () {
 				openSolution("NextRelease");
 			});
