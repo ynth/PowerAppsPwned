@@ -1756,47 +1756,42 @@ $(function () {
 			});
 
 			$("#pap_nextrelease").click(function () {
-				alert("dddd")
-				//browser.storage.sync.get(null, function (options) {
-				//	for (var option in options) {
+				openSolution("NextRelease");
+			});
 
-				//	}
-				//});
+			$("#pap_webresource").click(function () {
+				openSolution("CIWebResourceDeploy");
+			
 
-				////https://adsanddata-dev.crm4.dynamics.com/api/data/v9.2/solutions
-				//var userId = Xrm.Page.context.getUserId();
-				//var serverUrl = Xrm.Page.context.getClientUrl();
-				//var query = serverUrl + "/api/data/v9.2/solutions";
-				//var service = new XMLHttpRequest();
-				//service.open("GET", query, false);
-				//service.setRequestHeader("X-Requested-Width", "XMLHttpRequest");
-				//service.setRequestHeader("Accept", "application/json, text/javascript, */*");
-				//service.send(null);
-				//var requestResults = eval('(' + service.responseText + ')').d;
-				//console.log("xdd", requestResults);
-				//console.log("xdd", service.responseText );
-				//var results = requestResults.results[0].systemuserroles_association.results;
-				//return results.map(function (r) {
-				//	return {
-				//		name: r.Name,
-				//		id: r.RoleId,
-				//		entityType: "role"
-				//	}
-				//})
+				//const solutions = RetrieveWithCustomFilterXXX(
+				//	"solutions?" +
+				//	"$select=friendlyname,solutionid,uniquename" 
+				//	);
+				////"CIWebResourceDeploy"
+				//if (solutions.value.length > 0) {
+				//	console.log("solutions", solutions.value)
+				//	//const solutionid = solutions.value[0]["solutionid"];
+				//	//if (solutionid) {
+				//	//	window.open(Xrm.Page.context.getClientUrl() + "/tools/solution/edit.aspx?id=" + solutionid.toUpperCase() + "#", '_blank');
+				//	//}
+				//}
+			});
 
-				alert('pap_nextrelease');
+			$("#pap_openadvfind").click(function () {
+				let clientUrlForParams = Xrm.Page.context.getClientUrl();
+				clientUrlForParams += (Xrm.Page.context.getClientUrl().indexOf('appid') > -1 ? '&' : '/main.aspx?');
 
-				//Xrm.Utility.RetrieveEntities("solution", "")
-				//	.then(function (result) {
-				//		console.log("xdd",result)
-				//		//var url = Xrm.Page.context.getClientUrl() + "/api/data/v" + shortVersion + "/" + result.EntitySetName + "(" + Xrm.Page.data.entity.getId() + ")";
-				//		//url = url.replace("{", "").replace("}", "");
-				//		//window.open(url, '_blank');
-				//	});
-
-				//const xddd = await Xrm.Utility.RetrieveEntities("solutions");
-
-				//console.log("xddd", xddd)
+				if (!Xrm.Page.data || !Xrm.Page.data.entity) {
+					window.open(`${clientUrlForParams}pagetype=advancedfind`, '_blank');
+				} else {
+					let entityName = Xrm.Page.data.entity.getEntityName();
+					window.open(
+						`${clientUrlForParams}extraqs=EntityCode%3d${Xrm.Internal.getEntityCode(
+							entityName
+						)}&pagetype=advancedfind`,
+						'_blank'
+					);
+				}
 
 			});
 
@@ -1911,6 +1906,33 @@ function openList(entityName) {
 		let clientUrlForParams = Xrm.Page.context.getClientUrl();
 		clientUrlForParams += (Xrm.Page.context.getClientUrl().indexOf('appid') > -1 ? '&' : '/main.aspx?');
 		window.open(`${clientUrlForParams}etn=${entityName}&pagetype=entitylist`);
+	}
+}
+
+function RetrieveWithCustomFilterXXX(urlEnding) {
+	var req = new XMLHttpRequest();
+	var clientURL = Xrm.Page.context.getClientUrl();
+	req.open("GET", clientURL + "/api/data/v8.1/" + urlEnding, false);
+	req.setRequestHeader("Accept", "application/json");
+	req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	req.setRequestHeader("OData-MaxVersion", "4.0");
+	req.setRequestHeader("OData-Version", "4.0");
+	req.setRequestHeader("Prefer", 'odata.include-annotations="OData.Community.Display.V1.FormattedValue"');
+	req.send(null);
+	return JSON.parse(req.responseText);
+}
+
+function openSolution(friendlyname) {
+	const solutions = RetrieveWithCustomFilterXXX(
+		"solutions?" +
+		"$select=uniquename,solutionid" +
+		"&$filter=uniquename eq " + "'" + friendlyname + "'");
+
+	if (solutions.value.length > 0) {
+		const solutionid = solutions.value[0]["solutionid"];
+		if (solutionid) {
+			window.open(Xrm.Page.context.getClientUrl() + "/tools/solution/edit.aspx?id=" + solutionid.toUpperCase() + "#", '_blank');
+		}
 	}
 }
 
