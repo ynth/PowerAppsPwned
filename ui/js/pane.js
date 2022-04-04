@@ -1531,11 +1531,11 @@ $(function () {
 
 			$("#pap_minimumvalues").click(function () {
 				try {
-					if (Xrm.Page.ui.getFormType() !== 1) {
+					//if (Xrm.Page.ui.getFormType() !== 1) {
 
-						CrmPowerPane.UI.ShowNotification("This action can only be run on create form.");
-						return;
-					}
+					//	CrmPowerPane.UI.ShowNotification("This action can only be run on create form.");
+					//	return;
+					//}
 					Xrm.Page.data.entity.attributes.forEach((a) => {
 						if (a.getRequiredLevel() === 'required' && !a.getValue()) {
 							switch (a.getAttributeType()) {
@@ -1742,20 +1742,65 @@ $(function () {
 				console.clear();
 				alert("joo")
 				alert(window)
-			
-				console.log("tst",contentPanels[0].contentWindow.document.getElementById('topBar').backgroundColor)
+
+				console.log("tst", contentPanels[0].contentWindow.document.getElementById('topBar').backgroundColor)
 				window.top.document.getElementById('topBar').backgroundColor = green;
 				console.log("tstwindow", window.top.document.getElementById('topBar'))
 
 			});
 
 			$("#pap_openSystemJobs").click(function () {
-				
+
 				openList('asyncoperation');
 
 			});
 
-			
+			$("#pap_nextrelease").click(function () {
+				alert("dddd")
+				//browser.storage.sync.get(null, function (options) {
+				//	for (var option in options) {
+
+				//	}
+				//});
+
+				////https://adsanddata-dev.crm4.dynamics.com/api/data/v9.2/solutions
+				//var userId = Xrm.Page.context.getUserId();
+				//var serverUrl = Xrm.Page.context.getClientUrl();
+				//var query = serverUrl + "/api/data/v9.2/solutions";
+				//var service = new XMLHttpRequest();
+				//service.open("GET", query, false);
+				//service.setRequestHeader("X-Requested-Width", "XMLHttpRequest");
+				//service.setRequestHeader("Accept", "application/json, text/javascript, */*");
+				//service.send(null);
+				//var requestResults = eval('(' + service.responseText + ')').d;
+				//console.log("xdd", requestResults);
+				//console.log("xdd", service.responseText );
+				//var results = requestResults.results[0].systemuserroles_association.results;
+				//return results.map(function (r) {
+				//	return {
+				//		name: r.Name,
+				//		id: r.RoleId,
+				//		entityType: "role"
+				//	}
+				//})
+
+				alert('pap_nextrelease');
+
+				//Xrm.Utility.RetrieveEntities("solution", "")
+				//	.then(function (result) {
+				//		console.log("xdd",result)
+				//		//var url = Xrm.Page.context.getClientUrl() + "/api/data/v" + shortVersion + "/" + result.EntitySetName + "(" + Xrm.Page.data.entity.getId() + ")";
+				//		//url = url.replace("{", "").replace("}", "");
+				//		//window.open(url, '_blank');
+				//	});
+
+				//const xddd = await Xrm.Utility.RetrieveEntities("solutions");
+
+				//console.log("xddd", xddd)
+
+			});
+
+			//
 
 
 		}
@@ -1769,19 +1814,23 @@ $(function () {
 //#region Helpers
 function setFilter(attributes, formDocument, filter) {
 	attributes.forEach((x) => {
+
 		let e = (
-			document.querySelector(`div[data-id="${x.getName()}-FieldSectionItemContainer"] div[data-lp-id]`)
+
+			document.querySelector(`div[data-id="${x.getName()}"]`)
 		);
 		if (e) {
+			console.log(x.getName());
+			console.log(filter);
 			e.style.filter = filter;
 		}
 	});
-	formDocument.querySelector(`h1[data-id='header_title']`).style.filter = filter;
-	formDocument
-		.querySelectorAll(
-			'.wj-row[aria-label="Data"], #headerControlsList > div[role="presentation"] > div:first-child, div[data-lp-id$="MscrmControls.FieldControls.TextBoxControl"], div[data-lp-id^="MscrmControls.Containers.QuickForm"] div[data-lp-id^="MscrmControls.FieldControls.TextBoxControl"]'
-		)
-		.forEach((e) => (e.style.filter = filter));
+	formDocument.querySelector(`div']`).style.filter = filter;
+	//formDocument
+	//	.querySelectorAll(
+	//		'.wj-row[aria-label="Data"], #headerControlsList > div[role="presentation"] > div:first-child, div[data-lp-id$="MscrmControls.FieldControls.TextBoxControl"], div[data-lp-id^="MscrmControls.Containers.QuickForm"] div[data-lp-id^="MscrmControls.FieldControls.TextBoxControl"]'
+	//	)
+	//	.forEach((e) => (e.style.filter = filter));
 }
 
 function fetchme(entityName, attributes, filter, id, fetchXML) {

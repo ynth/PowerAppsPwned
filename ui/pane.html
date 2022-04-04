@@ -1,6 +1,7 @@
 <div id="crm-power-pane">
 	<div class="crm-power-pane-sections" tabindex="9999">
 		<div class="crm-power-pane-scrolling-container">
+			<!--1-->
 			<ul class="crm-power-pane-section" id="Forms">
 				<li class="crm-power-pane-header">Forms</li>
 				<li class="crm-power-pane-subgroup" id="pap_logicalnames"><span><span class="icon fetch-xml-icon"></span>Logical Names</span>
@@ -8,126 +9,69 @@
 				<li class="crm-power-pane-subgroup" id="pap_godmode"><span><span class="icon fetch-xml-icon"></span>God Mode</span>
 				<li class="crm-power-pane-subgroup" id="pap_changedfields"><span><span class="icon show-dirty-fields-icon"></span>Changed Fields</span></li>
 				<li class="crm-power-pane-subgroup" id="pap_recordid"><span><span class="icon record-id-icon"></span>Record ID</span></li>
-				<li class="crm-power-pane-subgroup" id="pap_refreshallsubgrids"><span><span class="icon fetch-xml-icon"></span>Refresh All Subgrids</span>
-				<li class="crm-power-pane-subgroup" id="pap_showoptionsetvalues"><span><span class="icon fetch-xml-icon"></span>Show OptionSetValues</span>
-				<li class="crm-power-pane-subgroup" id="pap_refresh_autosaveoff"><span><span class="icon fetch-xml-icon"></span>Refresh + Auto Save OFF</span>
-
-				<li class="crm-power-pane-subgroup" id="pap_wip"><span><span class="icon fetch-xml-icon"></span>PROCESS AND BUSINESS RULES</span>
 			</ul>
+			<!--2-->
 			<ul class="crm-power-pane-section" style="">
 				<li class="crm-power-pane-header"> </li>
 				<li class="crm-power-pane-subgroup" id="pap_clearlogicalnames"><span><span class="icon fetch-xml-icon"></span>Clear logical names</span></li>
 				<li class="crm-power-pane-subgroup" id="pap_resetblur"><span><span class="icon fetch-xml-icon"></span>Reset blur</span>
-				<li class="crm-power-pane-subgroup" id="pap_allfields"><span><span class="icon fetch-xml-icon pap_allfields"></span>All fields</span>
 				<li class="crm-power-pane-subgroup" id="pap_recordurl"><span><span class="icon record-url-icon"></span>Record URL</span></li>
-				<li class="crm-power-pane-subgroup" id="pap_openwebapi"><span><span class="icon fetch-xml-icon"></span>Open record in WEB API</span>
-				<li class="crm-power-pane-subgroup" id="pap_minimumvalues"><span><span class="icon fetch-xml-icon"></span>Minimum values</span>
-				<li class="crm-power-pane-subgroup" id="pap_clonerecord"><span><span class="icon fetch-xml-icon"></span>Clone record</span>
-
-				<li class="crm-power-pane-subgroup" id="pap_wip"><span><span class="icon fetch-xml-icon"></span>Toggle Tabs</span>
-				<li class="crm-power-pane-subgroup" id="pap_wip"><span><span class="icon fetch-xml-icon"></span>Record Properties</span>
+				<li class="crm-power-pane-subgroup" id="pap_minimumvalues"><span><span class="icon fetch-xml-icon"></span>Form Fill</span>
+				<li class="crm-power-pane-subgroup" id="open-form-editor"><span><span class="icon form-editor-icon"></span>Form Editor</span></li>
 			</ul>
-			<ul class="crm-power-pane-section" id="Navigation">
-				<li class="crm-power-pane-header">Navigation</li>
+			<!--<ul class="crm-power-pane-section" style="">
+				<li class="crm-power-pane-header"> </li>
+			</ul>-->
+			<!--3-->
+			<ul class="crm-power-pane-section" id="Entity">
+				<li class="crm-power-pane-header">Entity</li>
+				<li class="crm-power-pane-subgroup" id="show-optionset-values"><span><span class="icon show-optionset-values-icon"></span>Show Optionset Values</span></li>
+				<li class="crm-power-pane-subgroup" id="pap_allfields"><span><span class="icon fetch-xml-icon pap_allfields"></span>Show All fields</span>
+				<li class="crm-power-pane-subgroup" id="record-properties"><span><span class="icon record-properties-icon"></span>Show Created On/By</span></li>
+				<li class="crm-power-pane-subgroup" id="entity-name"><span><span class="icon entity-name-icon"></span>Show Entity Type Code</span></li>
+				<li class="crm-power-pane-subgroup" id="open-entity-editor"><span><span class="icon entity-editor-icon"></span>Entity Editor</span></li>
+			</ul>
+			<!--4-->
+			<ul class="crm-power-pane-section" style="">
+				<li class="crm-power-pane-header">Form Actions</li>
+				<li class="crm-power-pane-subgroup" id="schema-names"><span><span class="icon schema-names-icon"></span>Schema Names as Label</span></li>
+				<li class="crm-power-pane-subgroup" id="schema-names-as-desc"><span><span class="icon schema-names-as-desc-icon"></span>Schema Name Copy Mode</span></li>
+				<li class="crm-power-pane-subgroup" id="schema-names-in-brackets"><span><span class="icon schema-names-in-brackets-icon"></span>Schema Names In Brackets</span></li>
+				<li class="crm-power-pane-subgroup" id="pap_openwebapi"><span><span class="icon fetch-xml-icon"></span>Open Record in WEB API</span>
+				<li class="crm-power-pane-subgroup" id="clone-record"><span><span class="icon clone-record"></span>Clone Record</span></li>
+			</ul>
+			<!--5-->
+			<ul class="crm-power-pane-section" style="">
+				<li class="crm-power-pane-header"></li>
+				<li class="crm-power-pane-subgroup" id="refresh-ribbon"><span><span class="icon refresh-ribbon-icon"></span>Refresh Ribbon</span></li>
+				<li class="crm-power-pane-subgroup" id="refresh-form"><span><span class="icon refresh-form-icon"></span>Refresh Form</span></li>
+				<li class="crm-power-pane-subgroup" id="pap_refreshallsubgrids"><span><span class="icon fetch-xml-icon"></span>Refresh All Subgrids</span>
+				<li class="crm-power-pane-subgroup" id="pap_refresh_autosaveoff"><span><span class="icon fetch-xml-icon"></span>Refresh + Auto Save Off</span>
 
+			</ul>
+			<!--6-->
+			<ul class="crm-power-pane-section" style="">
+				<li class="crm-power-pane-header">Navigations</li>
 				<li class="crm-power-pane-subgroup" id="pap_openrecordbyid"><span><span class="icon go-to-record-icon"></span>Open record by ID</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Open list</span>
 				<li class="crm-power-pane-subgroup" id="pap_openSystemJobs"><span><span class="icon fetch-xml-icon"></span>System Jobs</span>
 				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Processes</span>
 				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Open Main</span>
 				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Mobile client</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Performance center</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Rower Platform Admin</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>New Window</span>
 
 			</ul>
+			<!--7-->
 			<ul class="crm-power-pane-section" style="">
 				<li class="crm-power-pane-header"> </li>
-				<li class="crm-power-pane-subgroup" id="shmeki_clearlogicalnames"><span><span class="icon fetch-xml-icon"></span>New Record</span></li>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Security</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Solutions</span>
-
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Mailboxes</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Advanced Find</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Performance diag</span>
-
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Instance picker</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Solutions History</span>
-				<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Quick Find FIelds</span>
-
-
-
-
-
-
-
-
-			</ul>
-			<ul class="crm-power-pane-section" id="user-actions">
-				<li class="crm-power-pane-header">General123</li>
-				<li class="crm-power-pane-subgroup" id="pap_test"><span><span class="icon user-info-icon"></span>TEST</span>
-
-				<li class="crm-power-pane-subgroup" id="user-info"><span><span class="icon user-info-icon"></span>User Info</span>
-				<li class="crm-power-pane-subgroup" id="fetch-xml"><span><span class="icon fetch-xml-icon"></span>Execute Fetch Xml</span></li>
-				<li class="crm-power-pane-subgroup" id="recordactions"><span><span class="icon fetch-xml-icon"></span>***Record Actions***</span></li>
-
-				<li class="crm-power-pane-subgroup" id="entity-name"><span><span class="icon entity-name-icon"></span>Entity Info</span></li>
-				<!--<li class="crm-power-pane-subgroup" id="record-id"><span><span class="icon record-id-icon"></span>Record Id</span></li>-->
-				<!--<li class="crm-power-pane-subgroup" id="record-url"><span><span class="icon record-url-icon"></span>Record Url</span></li>-->
-				<li class="crm-power-pane-subgroup" id="clone-record"><span><span class="icon clone-record"></span>Clone Record</span></li>
-				<li class="crm-power-pane-subgroup" id="record-properties"><span><span class="icon record-properties-icon"></span>Record Properties</span></li>
-
-			</ul>
-			<!--<ul class="crm-power-pane-section" id="record-actions">
-				<li class="crm-power-pane-header">Record Actions</li>
-				<li class="crm-power-pane-subgroup" id="entity-name"><span><span class="icon entity-name-icon"></span>Entity Info</span></li>
-				<li class="crm-power-pane-subgroup" id="record-id"><span><span class="icon record-id-icon"></span>Record Id</span></li>
-				<li class="crm-power-pane-subgroup" id="record-url"><span><span class="icon record-url-icon"></span>Record Url</span></li>
-				<li class="crm-power-pane-subgroup" id="clone-record"><span><span class="icon clone-record"></span>Clone Record</span></li>
-				<li class="crm-power-pane-subgroup" id="record-properties"><span><span class="icon record-properties-icon"></span>Record Properties</span></li>
-			</ul>-->
-			<ul class="crm-power-pane-section" id="form-actions" style="margin-right:10px!important">
-				<li class="crm-power-pane-header">Form Actions</li>
-				<li class="crm-power-pane-subgroup" id="enable-all-fields"><span><span class="icon enable-all-fields-icon"></span>Enable All Fields</span></li>
-				<li class="crm-power-pane-subgroup" id="show-all-fields"><span><span class="icon show-all-fields-icon"></span>Show Hidden Fields</span></li>
-				<li class="crm-power-pane-subgroup" id="disable-field-requirement"><span><span class="icon disable-field-requirement-icon"></span>Disable Field Requirement</span></li>
-				<li class="crm-power-pane-subgroup" id="schema-names"><span><span class="icon schema-names-icon"></span>Schema Names as Label</span></li>
-				<li class="crm-power-pane-subgroup" id="schema-names-as-desc"><span><span class="icon schema-names-as-desc-icon"></span>Schema Name Copy Mode</span></li>
-				<li class="crm-power-pane-subgroup" id="schema-names-in-brackets"><span><span class="icon schema-names-in-brackets-icon"></span>Schema Names In Brackets</span></li>
-				<li class="crm-power-pane-subgroup" id="show-optionset-values"><span><span class="icon show-optionset-values-icon"></span>Show Optionset Values</span></li>
-			</ul>
-			<ul class="crm-power-pane-section" style="">
-				<li class="crm-power-pane-header"> </li>
-				<li class="crm-power-pane-subgroup" id="show-field-value"><span><span class="icon show-field-value-icon"></span>Show Field Value</span></li>
-				<li class="crm-power-pane-subgroup" id="find-field-in-form"><span><span class="icon find-field-in-form-icon"></span>Find Field In Form</span></li>
-				<!--<li class="crm-power-pane-subgroup" id="show-dirty-fields"><span><span class="icon show-dirty-fields-icon"></span>Highlight Dirty Fields</span></li>-->
-				<li class="crm-power-pane-subgroup" id="clear-all-notifications"><span><span class="icon clear-all-notifications-icon"></span>Clear All Notifications</span></li>
 				<li class="crm-power-pane-subgroup" id="show-auto-fill"><span><span class="icon auto-fill"></span>Form Auto Fill</span></li>
-				<li class="crm-power-pane-subgroup" id="refresh-ribbon"><span><span class="icon refresh-ribbon-icon"></span>Refresh Ribbon</span></li>
-				<li class="crm-power-pane-subgroup" id="refresh-form"><span><span class="icon refresh-form-icon"></span>Refresh Form</span></li>
-				<li class="crm-power-pane-subgroup" id="toggle-lookup-links"><span><span class="icon toggle-lookup-links-icon"></span>Toggle Lookup Links</span></li>
+				<li class="crm-power-pane-subgroup" id="pap_nextrelease"><span><span class="icon auto-fill"></span>Next Release</span></li>
 			</ul>
+			<!--8-->
 			<ul class="crm-power-pane-section" id="form-actions">
 				<li class="crm-power-pane-header">Navigations</li>
-				<!--<li class="crm-power-pane-subgroup" id="go-to-record"><span><span class="icon go-to-record-icon"></span>Go to Record by Id</span></li>-->
 				<li class="crm-power-pane-subgroup" id="go-to-create-form"><span><span class="icon go-to-create-form"></span>Go to Create Form</span></li>
-				<li class="crm-power-pane-subgroup" id="open-form-editor"><span><span class="icon form-editor-icon"></span>Form Editor</span></li>
-				<li class="crm-power-pane-subgroup" id="open-entity-editor"><span><span class="icon entity-editor-icon"></span>Entity Editor</span></li>
 				<li class="crm-power-pane-subgroup" id="solutions"><span><span class="icon solutions-icon"></span>Solutions</span></li>
 				<li class="crm-power-pane-subgroup" id="crm-diagnostics"><span><span class="icon crm-diagnostics-icon"></span>Crm Diagnostics</span></li>
-				<li class="crm-power-pane-subgroup" id="performance-center"><span><span class="icon performance-center-icon"></span>Performance Center</span></li>
 			</ul>
-			<ul class="crm-power-pane-section" style="">
-				<li class="crm-power-pane-header"> </li>
-				<li class="crm-power-pane-subgroup" id="mobile-client"><span><span class="icon mobile-icon"></span>Mobile Client</span></li>
-				<!--<li class="crm-power-pane-subgroup" id="open-webapi"><span><span class="icon record-url-icon"></span>Open Web API Record</span></li>-->
-			</ul>
-			<!--
-			<ul class="crm-power-pane-section" style="">
-				<li class="crm-power-pane-header"> </li>
-				<li class="crm-power-pane-subgroup" id="go-to-record"><span><span class="icon create-form"></span>Create Record</span></li>
-			</ul>
-			-->
 		</div>
 		<!--<div id="crm-power-pane-notes" style="clear:both">
 			<a id="crm-power-pane-github" target="_blank" href="https://github.com/onurmenal/crm-power-pane/issues/new/choose"> <span></span> Provide Feedback</a>
@@ -214,3 +158,58 @@
 	</div>
 
 </div>
+<!--
+<ul class="crm-power-pane-section" style="">
+	<li class="crm-power-pane-header"> </li>
+	<li class="crm-power-pane-subgroup" id="go-to-record"><span><span class="icon create-form"></span>Create Record</span></li>
+</ul>	<!--<ul class="crm-power-pane-section" style="">
+				<li class="crm-power-pane-header"> </li>
+				<li class="crm-power-pane-subgroup" id="mobile-client"><span><span class="icon mobile-icon"></span>Mobile Client</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="open-webapi"><span><span class="icon record-url-icon"></span>Open Web API Record</span></li>-->
+<!--</ul>-->
+-->
+<!--<ul class="crm-power-pane-section" id="record-actions">
+		<li class="crm-power-pane-header">Record Actions</li>
+		<li class="crm-power-pane-subgroup" id="entity-name"><span><span class="icon entity-name-icon"></span>Entity Info</span></li>
+		<li class="crm-power-pane-subgroup" id="record-id"><span><span class="icon record-id-icon"></span>Record Id</span></li>
+		<li class="crm-power-pane-subgroup" id="record-url"><span><span class="icon record-url-icon"></span>Record Url</span></li>
+		<li class="crm-power-pane-subgroup" id="clone-record"><span><span class="icon clone-record"></span>Clone Record</span></li>
+		<li class="crm-power-pane-subgroup" id="record-properties"><span><span class="icon record-properties-icon"></span>Record Properties</span></li>
+	</ul>-->
+<!--<li class="crm-power-pane-subgroup" id="pap_showoptionsetvalues"><span><span class="icon fetch-xml-icon"></span>Show OptionSetValues</span>-->
+<!--<li class="crm-power-pane-subgroup" id="pap_wip"><span><span class="icon fetch-xml-icon"></span>PROCESS AND BUSINESS RULES</span>-->
+<!--<li class="crm-power-pane-subgroup" id="pap_allfields"><span><span class="icon fetch-xml-icon pap_allfields"></span>All fields</span>-->
+<!--<li class="crm-power-pane-subgroup" id="pap_clonerecord"><span><span class="icon fetch-xml-icon"></span>Clone record</span>-->
+<!--<li class="crm-power-pane-subgroup" id="pap_wip"><span><span class="icon fetch-xml-icon"></span>Toggle Tabs</span>-->
+<!--<li class="crm-power-pane-subgroup" id="pap_wip"><span><span class="icon fetch-xml-icon"></span>Record Properties</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Performance center</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Rower Platform Admin</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>New Window</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_clearlogicalnames"><span><span class="icon fetch-xml-icon"></span>New Record</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Security</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Solutions</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Mailboxes</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Advanced Find</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Performance diag</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Instance picker</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Solutions History</span>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Quick Find FIelds</span>-->
+<!--<li class="crm-power-pane-subgroup" id="pap_test"><span><span class="icon user-info-icon"></span>TEST</span>-->
+<!--<li class="crm-power-pane-subgroup" id="user-info"><span><span class="icon user-info-icon"></span>User Info</span>-->
+<!--<li class="crm-power-pane-subgroup" id="fetch-xml"><span><span class="icon fetch-xml-icon"></span>Execute Fetch Xml</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="recordactions"><span><span class="icon fetch-xml-icon"></span>***Record Actions***</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="record-id"><span><span class="icon record-id-icon"></span>Record Id</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="record-url"><span><span class="icon record-url-icon"></span>Record Url</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="shmeki_logicalnames"><span><span class="icon fetch-xml-icon"></span>Open list</span>-->
+<!--<li class="crm-power-pane-subgroup" id="enable-all-fields"><span><span class="icon enable-all-fields-icon"></span>Enable All Fields</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="show-all-fields"><span><span class="icon show-all-fields-icon"></span>Show Hidden Fields</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="disable-field-requirement"><span><span class="icon disable-field-requirement-icon"></span>Disable Field Requirement</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="show-optionset-values"><span><span class="icon show-optionset-values-icon"></span>Show Optionset Values</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="show-field-value"><span><span class="icon show-field-value-icon"></span>Show Field Value</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="find-field-in-form"><span><span class="icon find-field-in-form-icon"></span>Find Field In Form</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="show-dirty-fields"><span><span class="icon show-dirty-fields-icon"></span>Highlight Dirty Fields</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="clear-all-notifications"><span><span class="icon clear-all-notifications-icon"></span>Clear All Notifications</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="toggle-lookup-links"><span><span class="icon toggle-lookup-links-icon"></span>Toggle Lookup Links</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="open-form-editor"><span><span class="icon form-editor-icon"></span>Form Editor</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="go-to-record"><span><span class="icon go-to-record-icon"></span>Go to Record by Id</span></li>-->
+<!--<li class="crm-power-pane-subgroup" id="performance-center"><span><span class="icon performance-center-icon"></span>Performance Center</span></li>-->
