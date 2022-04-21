@@ -1,15 +1,15 @@
 {
 	"manifest_version": 3,
-	"name": "PowerAppsPwned",
-	"short_name": "PowerAppsPwned",
+	"name": "SuperPowerApps",
+	"short_name": "SuperPowerApps",
 	"version": "3.6.5",
-	"description": "PowerAppsPwned",
+	"description": "Power Apps Developer Extension",
 	"content_security_policy": {
 		"script-src": "self",
 		"object-src": "self"
 	},
 	"action": {
-		"default_title": "PowerAppsPwned",
+		"default_title": "SuperPowerApps",
 		"default_icon": "img/adjust48.png"
 	},
 	"icons": {

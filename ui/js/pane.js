@@ -1234,9 +1234,9 @@ $(function () {
 			$("#pap_logicalnames").click(function () {
 				try {
 
-					let contentPanels = Array.from(document.querySelectorAll('iframe')).filter(function (d) {
-						return d.style.visibility !== 'hidden';
-					});
+					if (!Xrm.Page.ui.tabs) { return; }
+
+					let contentPanels = Array.from(document.querySelectorAll('iframe')).filter(function (d) { return d.style.visibility !== 'hidden'; });
 
 					window.top.document.querySelectorAll('.levelupschema').forEach((x) => x.remove());
 
@@ -1314,6 +1314,8 @@ $(function () {
 					});
 					CrmPowerPane.UI.ShowNotification("Logical Names executed succesfully.");
 				} catch (e) {
+					console.clear();
+					console.log("PAP", Xrm.Page.ui.tabs)
 					alert("2" + e)
 					//CrmPowerPane.UI.ShowNotification("An error occurred while getting the user information.", "error");
 				}
@@ -1357,6 +1359,59 @@ $(function () {
 				}
 				CrmPowerPane.UI.ShowNotification("Entered God Mode.");
 
+				//var oldHash = window.location.href;
+				//setInterval(function () {
+
+				//	if (oldHash !== window.location.href) {
+
+				//		oldHash = window.location.href;
+				//		document.getElementById('pap_godmode').click();
+				//		setTimeout(function () { document.getElementById('pap_godmode').click() }, 1000)
+				//		setTimeout(function () { document.getElementById('pap_godmode').click() }, 2000)
+				//	}
+				//}, 100);
+			});
+
+			$("#pap_godmodealways").click(function () {
+				const selectedTab = Xrm.Page.ui.tabs.get((x) => x.getDisplayState() === 'expanded')[0];
+
+				Xrm.Page.data.entity.attributes.forEach((a) => a.setRequiredLevel('none'));
+
+				Xrm.Page.ui.controls.forEach((c) => {
+					c.setVisible(true);
+					if (c.setDisabled) {
+						c.setDisabled(false);
+					}
+					if (c.clearNotification) {
+						c.clearNotification();
+					}
+				});
+
+				Xrm.Page.ui.tabs.forEach((t) => {
+					t.setVisible(true);
+					t.setDisplayState('expanded');
+					t.sections.forEach((s) => s.setVisible(true));
+				});
+
+				if (selectedTab.setFocus) {
+					selectedTab.setDisplayState('expanded');
+					selectedTab.setFocus();
+				}
+				
+
+				var oldHash = window.location.href;
+				setInterval(function () {
+
+					if (oldHash !== window.location.href) {
+
+						oldHash = window.location.href;
+						document.getElementById('pap_godmode').click();
+						setTimeout(function () { document.getElementById('pap_godmode').click() }, 1000)
+						setTimeout(function () { document.getElementById('pap_godmode').click() }, 2000)
+					}
+				}, 100);
+
+				CrmPowerPane.UI.ShowNotification("Entered God Mode Always.");
 			});
 
 			$("#pap_blurfields").click(function () {
@@ -1767,7 +1822,7 @@ $(function () {
 
 			$("#pap_webresource").click(function () {
 				openSolution("CIWebResourceDeploy");
-			
+
 
 				//const solutions = RetrieveWithCustomFilterXXX(
 				//	"solutions?" +
